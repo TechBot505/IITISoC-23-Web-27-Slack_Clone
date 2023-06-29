@@ -15,20 +15,9 @@ const navigate = useNavigate()
     
   },[navigate])
   return (
-    <Container display={"flex"} justifyContent={"space-between"}  maxW='70%' >
-      <Box 
-       display={"flex"}
-       justifyContent="flex-end"
-       p={3}
-       bg={"white"}
-       w="20%"
-       m= " 40px 0 15px 0"
-       borderRadius="lg"
-       borderWidth="1px">
-
-
-      </Box>
-      <Box>
+    <Container centerContent maxW='xl' >
+     
+      
       <Box
       d="flex"
       justifyContent="center"
@@ -72,7 +61,7 @@ const navigate = useNavigate()
         
        
       </Box>
-      </Box>
+      
     
 
 
