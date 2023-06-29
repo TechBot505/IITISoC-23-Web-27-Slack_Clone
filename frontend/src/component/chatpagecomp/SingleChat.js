@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../context/chatProvider'
-import { Box,FormControl,IconButton,Input,Spinner,Text, useToast,  } from '@chakra-ui/react';
+import { Box,FormControl,IconButton,Input,Spinner,Text, useToast  } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { getSender, getSenderFull } from '../../config2/ChatLogic';
 import ProfileModal from './profileModel';
@@ -13,28 +13,69 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [newMessage, setNewMessage] = useState("")
     const toast = useToast()
 
-    const { user, selectedChat, setSelectedChat}    = ChatState();
+    const { user, selectedChat, setSelectedChat} = ChatState();
+    const typingHandler =(e)=>{
+      setNewMessage(e.target.value)
+
+  }
+  const fetchMessages = async () => {
+    if (!selectedChat) return;
+
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      setLoading(true);
+
+      const { data } = await axios.get(
+        `/api/message/${selectedChat._id}`,
+        config
+      ); 
+      setMessages(data);
+      setLoading(false);
+
+      // socket.emit("join chat", selectedChat._id);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to Load the Messages",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+  };
+  
+  
     const sendMessages = async (event) => {
         if (event.key === "Enter" && newMessage) { 
-        //   socket.emit("stop typing", selectedChat._id);
+        //  
           try {
             const config = {
               headers: {
-                "Content-type": "application/json",
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${user.token}`,
               },
             };
+                
+           
             setNewMessage("");
-            const { data } = await axios.post(
-              "/api/message",
+            const  {data}  = await axios.post(
+              "/api/message/",
               {
                 content: newMessage,
-                chatId: selectedChat._id,
-              },
-              config
+                chatId: selectedChat,
+              },config
+              
             );
             // socket.emit("new message", data);
-            console.log(data)
+           
+            
+            
             setMessages([...messages, data]);
           } catch (error) {
             toast({
@@ -48,10 +89,10 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
           }
         }
       };
-    const typingHandler =(e)=>{
-        setNewMessage(e.target.value)
-
-    }
+      useEffect(() => {
+        fetchMessages();
+       }, [selectedChat])
+   
   return( <>{
     selectedChat? (
         <>
