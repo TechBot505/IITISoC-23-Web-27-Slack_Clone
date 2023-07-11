@@ -6,6 +6,8 @@ import { getSender, getSenderFull } from '../../config2/ChatLogic';
 import ProfileModal from './profileModel';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
 import axios from 'axios';
+import './styles.css'
+import ScrollableChat from './ScrollableChat';
 
 const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [messages, setMessages] = useState([])
@@ -30,11 +32,16 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
 
       setLoading(true);
 
-      const { data } = await axios.get(
+       const { data } = await axios.get(
         `/api/message/${selectedChat._id}`,
         config
-      ); 
+      );
+     
+
+          console.log(messages)
       setMessages(data);
+      console.log(data)
+      
       setLoading(false);
 
       // socket.emit("join chat", selectedChat._id);
@@ -91,7 +98,9 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
       };
       useEffect(() => {
         fetchMessages();
-       }, [selectedChat])
+    
+        
+      },[selectedChat]);
    
   return( <>{
     selectedChat? (
@@ -113,17 +122,21 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
              
 
             />
-            {!selectedChat.isGroupChat ? (
+              {messages &&
+              (!selectedChat.isGroupChat) ? (
                 <>
-                {getSender(user,selectedChat.users)}
-                
-                <ProfileModal  user= {getSenderFull(user, selectedChat.users)}/>
+                  {getSender(user, selectedChat.users)}
+                  <ProfileModal
+                    user={getSenderFull(user, selectedChat.users)}
+                  />
                 </> 
             ) : (<>
 
             {selectedChat.chatName.toUpperCase()}
             <UpdateGroupChatModal fetchAgain={fetchAgain}
-            setFetchAgain={setFetchAgain}/>
+            setFetchAgain={setFetchAgain}
+            fetchMessages={fetchMessages}
+            />
             </>)}
                 
             
@@ -149,9 +162,17 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                     alignSelf={"center"}
                     margin={"auto"}
                     />)
-                    : (<div>Messages</div>)
+                    : (<div className='messages'>
+
+                      <ScrollableChat  messages={messages}/>
+                    </div>)
                 }
-            <FormControl onKeyDown={sendMessages} isRequired mt={3}>
+            <FormControl 
+            onKeyDown={sendMessages} 
+            id="first-name" 
+            isRequired mt={3}
+            
+            >
                 <Input
                 variant={"filled"}
                 placeholder='Type your message here' 

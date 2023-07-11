@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, {  useState } from "react";
+
 import { ChatState } from "../context/chatProvider";
 import { Box } from "@chakra-ui/react";
 import SideDrawer from "../component/chatpagecomp/SideDrawer";
@@ -19,7 +19,7 @@ const Chatpage = () => {
   }
   justifyContent='space-evenly'
   width={"100%"}
-  height={'"91.5vh"'}
+  height={"91.5vh"}
   p="10px"
   >
     {user && <MyChats fetchAgain={fetchAgain}/>}

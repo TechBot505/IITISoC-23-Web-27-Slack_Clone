@@ -2,22 +2,19 @@ const asyncHandler = require("express-async-handler");
 const Message = require('../models/messagesmodel');
 const User = require('../models/userModel');
 const Chat = require("../models/chatmodel");
-
 const allMessages = asyncHandler(async (req, res) => {
-    try {
-      const messages = await Message.find({ chat: req.params.chatId })
-        .populate("sender", "name pic email")
-        .populate("chat");
-      res.json(messages);
-    } catch (error) {
-      res.status(400);
-      throw new Error(error.message);
-    }
-  });
+  try {
+    const messages = await Message.find({ chat: req.params.chatId })
+      .populate("sender", "name pic email")
+      .populate("chat");
+    res.json(messages);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
   
-  //@description     Create New Message
-  //@route           POST /api/Message/
-  //@access          Protected
+ 
   const sendMessages = asyncHandler(async (req, res) => {
     const { content, chatId } = req.body;
   
