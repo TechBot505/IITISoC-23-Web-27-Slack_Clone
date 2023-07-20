@@ -18,6 +18,8 @@ import {
 } from '@chakra-ui/react'
 import ChatLoading from './ChatLoading';
 import UserListItem from './UserListItem';
+import { get } from 'mongoose';
+import { getSender } from '../../config2/ChatLogic';
 
 
 
@@ -30,7 +32,7 @@ const SideDrawer = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState();
-  const {user, setSelectedChat, chats, setChats} = ChatState();
+  const {user, setSelectedChat, chats, setChats, notification , setNotification} = ChatState();
   const navigate = useNavigate();
 
   const logoutHandler =()=>{
@@ -136,9 +138,14 @@ const SideDrawer = () => {
             >
                <BellIcon fontSize={"2xl"} m={1}/>
 
-               {/* <MenuList>
+               <MenuList>{!notification.length && "No new messages"}
+               {notification.map(notif=>(
+                <MenuItem key={notif._id}>
+                  {notif.chat.isGroupChat?`new message in ${notif.chat.chatName}`: `new message from ${getSender(user, notif.chat.users)}`}
+                </MenuItem>
+               ))}
 
-               </MenuList> */}
+               </MenuList>
 
             </MenuButton>
           </Menu>

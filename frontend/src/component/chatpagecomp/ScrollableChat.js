@@ -8,7 +8,7 @@ const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
   return (
     <>
-      <ScrollableFeed>
+      <ScrollableFeed className="scrol-feed">
         {messages &&
           messages.map((m, i) => (
             <div style={{ display: "flex" }} key={m._id}>

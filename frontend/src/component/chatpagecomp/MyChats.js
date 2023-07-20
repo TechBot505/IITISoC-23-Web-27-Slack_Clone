@@ -69,13 +69,13 @@ const MyChats = ({ fetchAgain }) => {
           <Button
             display="flex"
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-            rightIcon={<AddIcon />}
+            rightIcon={<AddIcon/>}
           >
             New Group Chat
           </Button>
         </GroupChatModal>
       </Box>
-      <Box
+      <Box className='text-box'
         display="flex"
         flexDir="column"
         p={3}
@@ -86,7 +86,7 @@ const MyChats = ({ fetchAgain }) => {
         overflowY="hidden"
       >
         {chats ? (
-          <Stack overflowY="scroll">
+          <Stack className='chats-stack'>
             {chats.map((chat) => (
               <Box
                 onClick={() => setSelectedChat(chat)}
