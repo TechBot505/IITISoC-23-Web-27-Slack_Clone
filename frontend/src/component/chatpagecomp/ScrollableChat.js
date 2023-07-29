@@ -43,7 +43,7 @@ const ScrollableChat = ({ messages }) => {
                 marginTop : isSameUser(messages,m,i,user._id) ? 3 : 10 ,
                 marginLeft : isSameSenderMargin(messages,m,i,user._id) ,
             
-              }}>
+              }}> 
                     {m.content}
               </span>
             </div>
