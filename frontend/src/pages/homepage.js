@@ -30,9 +30,10 @@ const navigate = useNavigate()
       >
         <Text
         fontSize="4xl"
+        fontWeight={"700"}
         color={'black'}
         textAlign="center"
-        > CHAT APP </Text>
+        > SLACK CLONE </Text>
        
       </Box>
       <Box

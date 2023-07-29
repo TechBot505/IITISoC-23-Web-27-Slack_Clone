@@ -16,7 +16,3 @@
 .chats-stack::-webkit-scrollbar{
     display: none;
 }
-.shw-pswrd-btn{
-    height: fit-content ;
-    background-color: rgb(24, 235, 168);
-}

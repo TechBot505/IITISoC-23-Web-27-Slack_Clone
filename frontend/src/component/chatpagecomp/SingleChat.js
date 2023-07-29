@@ -135,8 +135,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         socket.emit("setup" , user);
         socket.on("connected", ()=>setSocketConnected(true)
         )
-        // socket.on("typing" ,()=>setIsTyping(true) )
-        // socket.on("stop typing" ,()=>setIsTyping(false) )
+       
     
         
       }, []);

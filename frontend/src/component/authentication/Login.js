@@ -92,8 +92,8 @@ const Login = () => {
             placeholder=" enter password "
             onChange={(e) => setPassword(e.target.value)}
           />
-          <InputRightElement>
-            <Button h={"1.75rem"} size="sm" onClick={handleClick}>
+          <InputRightElement  width={"3rem"}>
+            <Button onClick={handleClick}>
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
@@ -122,7 +122,7 @@ const Login = () => {
           setPassword("12345678")
         }}
         >
-           Login as Guest
+           Get Credentials for guest login
         </Button>
     </VStack>
   )

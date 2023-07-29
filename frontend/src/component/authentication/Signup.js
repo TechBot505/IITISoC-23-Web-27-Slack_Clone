@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom'
+import "./styles.css"
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -159,8 +160,8 @@ const Signup = () => {
             placeholder=" enter password "
             onChange={(e) => setPassword(e.target.value)}
           />
-          <InputRightElement>
-            <Button h={"1.75rem"} size="sm" onClick={handleClick}>
+          <InputRightElement width={"3rem"}>
+            <Button  className="shw-pswrd-btn"  onClick={handleClick}>
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
@@ -174,8 +175,8 @@ const Signup = () => {
             placeholder=" confirm password "
             onChange={(e) =>setConfirmpassword(e.target.value)}
           />
-          <InputRightElement>
-            <Button h={"1.75rem"} size="sm" onClick={handleClick}>
+          <InputRightElement  width={"3rem"}>
+            <Button  onClick={handleClick}>
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
